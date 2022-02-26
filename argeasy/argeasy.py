@@ -95,7 +95,8 @@ class ArgEasy(object):
         self,
         name: str,
         help: str,
-        action: str = 'default'
+        action: str = 'default',
+        flags: Flags = None
     ) -> None:
         """Add argument.
 
@@ -113,7 +114,8 @@ class ArgEasy(object):
 
         self._commands[name] = {
             'help': help,
-            'action': action
+            'action': action,
+            'flags': flags
         }
 
         setattr(self._default_namespace, name, None)
