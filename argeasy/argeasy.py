@@ -38,6 +38,8 @@ class ArgEasy(object):
         self._commands = {}
         self._actions = []
 
+        self._default_namespace = Namespace()
+
         self.version = version
         self.description = description
 
@@ -66,6 +68,8 @@ class ArgEasy(object):
             'action': action
         }
 
+        setattr(self._default_namespace, name, None)
+
     def _print_help(self) -> None:
         print(f'usage: [command] [**optional] [flags]')
 
@@ -85,7 +89,8 @@ class ArgEasy(object):
         args = sys.argv[1:]
 
         if len(args) == 0:
-            return self._print_help()
+            self._print_help()
+            return self._default_namespace
 
         command = args[0]
 
