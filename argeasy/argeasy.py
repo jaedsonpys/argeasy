@@ -51,7 +51,7 @@ class ArgEasy(object):
         self,
         name: str,
         help: str,
-        action: str
+        action: str = 'default'
     ) -> None:
         """Add argument.
 
