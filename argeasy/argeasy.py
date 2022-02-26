@@ -114,9 +114,9 @@ class ArgEasy(object):
                     value = False
                 elif action == 'default':
                     if len(args) < 2:
-                        # print a message to
                         # invalid argument use
-                        pass
+                        print(f'Invalid use of the command "{cmd}":')
+                        print(f'    help: {info["help"]}')
                     
                     value = args[1]
 
