@@ -87,6 +87,10 @@ class ArgEasy(object):
         Checks the obtained arguments 
         and determines the value of them
         by returning a Namespace object.
+
+        If the argument has the value of
+        "None", it means that it was not
+        called by the command line.
         """
 
         namespace = Namespace()
