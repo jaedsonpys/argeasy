@@ -2,7 +2,23 @@ import sys
 
 
 class Namespace(object):
-    pass
+    def __repr__(self):
+        def get_attr():
+            attr = []
+            for i in self.__dir__():
+                if not i.startswith('__'): attr.append(i)
+            return attr
+
+        attr = get_attr()
+        repr = 'Namespace('
+        
+        for c, a in enumerate(attr):
+            if c == len(attr) - 1:
+                repr += f'{a}={self.__getattribute__(a)})'
+            else:
+                repr += f'{a}={self.__getattribute__(a)}, '
+
+        return repr
 
 
 class ArgEasy(object):
