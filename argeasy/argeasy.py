@@ -1,4 +1,3 @@
-from ctypes import Union
 import sys
 
 
@@ -46,3 +45,10 @@ class ArgEasy(object):
             'help': help,
             'action': action
         }
+
+    def _print_help(self) -> None:
+        print(f'usage: [command] [**optional] [flags]')
+
+        print('\ncommands:')
+        for cmd, info in self._commands.items():
+            print(f'    {cmd}: {info["help"]}')
