@@ -1,0 +1,5 @@
+__pycache__
+build
+dist
+argeasy.egg-info
+PROJECT.md
