@@ -17,7 +17,7 @@ class ArgEasy(object):
         """
 
         self._commands = {}
-        self._modes = []
+        self._actions = []
 
         self.version = version
         self.description = description
@@ -26,12 +26,23 @@ class ArgEasy(object):
         self,
         name: str,
         help: str,
-        mode: str
+        action: str
     ) -> None:
-        if mode not in self._modes:
-            raise Exception('Mode not recognized')
+        """Add argument.
+
+        :param name: Argument name
+        :type name: str
+        :param help: Help to argument
+        :type help: str
+        :param action: Argument action
+        :type action: str
+        :raises Exception: Action not recognized
+        """
+
+        if action not in self._actions:
+            raise Exception('Action not recognized')
 
         self._commands[name] = {
             'help': help,
-            'mode': mode
+            'action': action
         }
