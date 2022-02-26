@@ -1,6 +1,10 @@
 import sys
 
 
+class Namespace(object):
+    pass
+
+
 class ArgEasy(object):
     def __init__(
         self,
