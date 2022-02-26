@@ -21,6 +21,50 @@ class Namespace(object):
         return repr
 
 
+class Flags(object):
+    def __init__(self) -> None:
+        self._flags = {}
+        self._actions = [
+            'store_true',
+            'store_false',
+            'default'
+        ]
+
+    def add_flag(
+        self,
+        name: str,
+        help: str,
+        action: str = 'default',
+        required: bool = False
+    ) -> None:
+        """Create a new flag.
+
+        The flag name can have only
+        one hyphen if the flag has
+        only one letter (-h), or two
+        hyphens if it is a word
+        (--help).
+
+        :param name: Flag name
+        :type name: str
+        :param help: Help text
+        :type help: str
+        :param action: Flag action, defaults to 'default'
+        :type action: str, optional
+        :param required: If flag is required, defaults to False
+        :type required: bool, optional
+        """
+
+        if action not in self._actions:
+            raise Exception('Action not recognized')
+
+        self._flags[name] = {
+            'help': help,
+            'action': action,
+            'required': required
+        }
+
+
 class ArgEasy(object):
     def __init__(
         self,
