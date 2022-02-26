@@ -36,7 +36,11 @@ class ArgEasy(object):
         """
 
         self._commands = {}
-        self._actions = []
+        self._actions = [
+            'store_true',
+            'store_false',
+            'default'
+        ]
 
         self._default_namespace = Namespace()
 
