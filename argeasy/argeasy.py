@@ -11,7 +11,7 @@ class Namespace(object):
 
         attr = get_attr()
         repr = 'Namespace('
-        
+
         for c, a in enumerate(attr):
             if c == len(attr) - 1:
                 repr += f'{a}={self.__getattribute__(a)})'
@@ -72,3 +72,41 @@ class ArgEasy(object):
         print('\ncommands:')
         for cmd, info in self._commands.items():
             print(f'    {cmd}: {info["help"]}')
+
+    def get_args(self) -> Namespace:
+        """Get args.
+        
+        Checks the obtained arguments 
+        and determines the value of them
+        by returning a Namespace object.
+        """
+
+        namespace = Namespace()
+        args = sys.argv[1:]
+
+        if len(args) == 0:
+            return self._print_help()
+
+        command = args[0]
+
+        for cmd, info in self._commands.items():
+            value = None
+
+            if cmd == command:
+                action = info['action']
+
+                if action == 'store_true':
+                    value = True
+                elif action == 'store_false':
+                    value = False
+                elif action == 'default':
+                    if len(args) < 2:
+                        # print a message to
+                        # invalid argument use
+                        pass
+                    
+                    value = args[1]
+
+            setattr(namespace, cmd, value)
+
+        return namespace
