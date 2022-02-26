@@ -116,9 +116,9 @@ class ArgEasy(object):
                     if len(args) < 2:
                         # invalid argument use
                         print(f'Invalid use of the command "{cmd}":')
-                        print(f'    help: {info["help"]}')
-                    
-                    value = args[1]
+                        print(f'    add: {info["help"]}')
+                    else:
+                        value = args[1]
 
             setattr(namespace, cmd, value)
 
