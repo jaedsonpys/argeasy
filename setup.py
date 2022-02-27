@@ -8,7 +8,8 @@ setup(
     author_email='imunknowuser@protonmail.com',
     packages=['argeasy'],
     project_urls={
-        'Código fonte': 'https://github.com/jaedsonpys/argeasy'
+        'Código fonte': 'https://github.com/jaedsonpys/argeasy',
+        'Licença': 'https://github.com/jaedsonpys/argeasy/blob/master/LICENSE'
     },
     license='GNU General Public License v3.0'
 )
