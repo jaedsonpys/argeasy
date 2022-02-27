@@ -129,7 +129,7 @@ class ArgEasy(object):
         for cmd, info in self._commands.items():
             print(f'    {cmd}: {info["help"]}')
 
-        print('\flags:')
+        print('\nflags:')
         for flag, info in self._flags.items():
             print(f'    {flag}: {info["help"]}')
 
@@ -163,6 +163,9 @@ class ArgEasy(object):
 
         for flag, info in self._flags.items():
             value = None
+
+            if flag == '-h' or flag == '--help':
+                return self._print_help()
 
             if flag in arg_flags:
                 action = info['action']
