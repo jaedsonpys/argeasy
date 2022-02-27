@@ -13,10 +13,14 @@ class Namespace(object):
         repr = 'Namespace('
 
         for c, a in enumerate(attr):
+            value = self.__getattribute__(a)
+            if isinstance(value, str):
+                value = f'"{value}"'
+
             if c == len(attr) - 1:
-                repr += f'{a}={self.__getattribute__(a)})'
+                repr += f'{a}={value})'
             else:
-                repr += f'{a}={self.__getattribute__(a)}, '
+                repr += f'{a}={value}, '
 
         return repr
 
