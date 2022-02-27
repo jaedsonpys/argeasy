@@ -24,3 +24,12 @@ if args.foo:
 ```
 
 Neste código, adicionamos um argumento chamado `foo` e definimos a ação (action) como `store_true`, ou seja, quando esse argumento for chamado, o valor dele será `True`. Caso contrário, o valor será `None`
+
+### Actions
+
+Action é a ação que o `argeasy` deve tomar ao perceber um argumento. Veja as ações disponíveis:
+
+- `default`: obtém o próximo argumento como resposta. Por exemplo, se o argumento `add` estiver definido como `default` e digitarmos o comando `add README.md`, o conteúdo da variável `args.add` será `README.md`;
+- `store_true`: se o argumento for detectado, o valor dele será `True`;
+- `store_false`: se o argumento for detectado, o valor dele será `False`;
+- `append`: se o argumento for detectado, ele irá obter todos os outros argumentos presentes a frente dele. Por exemplo, no argumento `add`, podemos obter vários arquivos de uma vez com o comando `add README.md app.py test.txt` utilizando a ação `append`. Também é possível definir o limite de argumentos;
