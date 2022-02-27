@@ -162,7 +162,7 @@ class ArgEasy(object):
                 elif action == 'store_false':
                     value = False
                 elif action == 'default':
-                    if len(args[flag_index:]) < 1:
+                    if len(args[flag_index:]) < 2:
                         # invalid argument use
                         print(f'Invalid use of the flag "{flag}":')
                         print(f'    {flag}: {info["help"]}')
