@@ -33,3 +33,12 @@ Action é a ação que o `argeasy` deve tomar ao perceber um argumento. Veja as 
 - `store_true`: se o argumento for detectado, o valor dele será `True`;
 - `store_false`: se o argumento for detectado, o valor dele será `False`;
 - `append`: se o argumento for detectado, ele irá obter todos os outros argumentos presentes a frente dele. Por exemplo, no argumento `add`, podemos obter vários arquivos de uma vez com o comando `add README.md app.py test.txt` utilizando a ação `append`. Também é possível definir o limite de argumentos;
+
+## Licença
+
+GNU GENERAL PUBLIC LICENSE
+Version 3, 29 June 2007
+
+Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
+Everyone is permitted to copy and distribute verbatim copies
+of this license document, but changing it is not allowed.
