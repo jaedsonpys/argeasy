@@ -173,7 +173,7 @@ class ArgEasy(object):
                         return None
                     else:
                         if max_append == '*':
-                            value = args[flag_index + 1:]
+                            arg_list = args[flag_index + 1:]
                         else:
                             max_append = int(max_append) + (flag_index + 1)
 
@@ -182,7 +182,16 @@ class ArgEasy(object):
                                 print(f'    {flag}: {info["help"]}')
                                 return None
 
-                            value = args[flag_index + 1:max_append]
+                            arg_list = args[flag_index + 1:max_append]
+
+                        value = []
+
+                        # filtrando flags da lista
+                        # de argumentos
+                        for a in arg_list:
+                            if a.startswith('-'):
+                                break
+                            value.append(a)
                 elif action == 'default':
                     if len(args[flag_index:]) < 2:
                         # invalid argument use
@@ -217,7 +226,7 @@ class ArgEasy(object):
                         return None
                     else:
                         if max_append == '*':
-                            value = args[1:]
+                            arg_list = args[1:]
                         else:
                             max_append = int(max_append) + 1
 
@@ -226,7 +235,16 @@ class ArgEasy(object):
                                 print(f'    {flag}: {info["help"]}')
                                 return None
 
-                            value = args[1:max_append]
+                            arg_list = args[1:max_append]
+
+                        value = []
+
+                        # filtrando flags da lista
+                        # de argumentos
+                        for a in arg_list:
+                            if a.startswith('-'):
+                                break
+                            value.append(a)
                 elif action == 'default':
                     if len(args) < 2:
                         # invalid argument use
