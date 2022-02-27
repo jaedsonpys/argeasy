@@ -21,14 +21,60 @@ class Namespace(object):
         return repr
 
 
-class Flags(object):
-    def __init__(self) -> None:
+class ArgEasy(object):
+    def __init__(
+        self,
+        description: str = None,
+        version: str = None,
+    ) -> None:
+        """Inicializes the ArgEasy.
+
+        :param description: Description of CLI, defaults to None
+        :type description: str, optional
+        :param version: Version of App, defaults to None
+        :type version: str, optional
+        """
+
+        self._commands = {}
         self._flags = {}
+
         self._actions = [
             'store_true',
             'store_false',
             'default'
         ]
+
+        self._default_namespace = Namespace()
+
+        self.version = version
+        self.description = description
+
+    def add_argument(
+        self,
+        name: str,
+        help: str,
+        action: str = 'default'
+    ) -> None:
+        """Add argument.
+
+        :param name: Argument name
+        :type name: str
+        :param help: Help to argument
+        :type help: str
+        :param action: Argument action
+        :type action: str
+        :raises Exception: Action not recognized
+        """
+
+        if action not in self._actions:
+            raise Exception('Action not recognized')
+
+        self._commands[name] = {
+            'help': help,
+            'action': action
+        }
+
+        setattr(self._default_namespace, name, None)
 
     def add_flag(
         self,
@@ -62,60 +108,6 @@ class Flags(object):
             'help': help,
             'action': action,
             'required': required
-        }
-
-
-class ArgEasy(object):
-    def __init__(
-        self,
-        description: str = None,
-        version: str = None,
-    ) -> None:
-        """Inicializes the ArgEasy.
-
-        :param description: Description of CLI, defaults to None
-        :type description: str, optional
-        :param version: Version of App, defaults to None
-        :type version: str, optional
-        """
-
-        self._commands = {}
-        self._actions = [
-            'store_true',
-            'store_false',
-            'default'
-        ]
-
-        self._default_namespace = Namespace()
-
-        self.version = version
-        self.description = description
-
-    def add_argument(
-        self,
-        name: str,
-        help: str,
-        action: str = 'default',
-        flags: Flags = None
-    ) -> None:
-        """Add argument.
-
-        :param name: Argument name
-        :type name: str
-        :param help: Help to argument
-        :type help: str
-        :param action: Argument action
-        :type action: str
-        :raises Exception: Action not recognized
-        """
-
-        if action not in self._actions:
-            raise Exception('Action not recognized')
-
-        self._commands[name] = {
-            'help': help,
-            'action': action,
-            'flags': flags
         }
 
         setattr(self._default_namespace, name, None)
