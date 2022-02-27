@@ -144,6 +144,12 @@ class ArgEasy(object):
         command = args[0]
         arg_flags = [a for a in args if a.startswith('-')]
 
+        if command not in self._commands:
+            print(f'unrecognized command: {command}')
+            print('use --help to see commands')
+
+            return None
+
         for flag, info in self._flags.items():
             value = None
 
