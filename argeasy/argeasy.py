@@ -41,6 +41,7 @@ class ArgEasy(object):
         self._actions = [
             'store_true',
             'store_false',
+            'append',
             'default'
         ]
 
@@ -53,7 +54,8 @@ class ArgEasy(object):
         self,
         name: str,
         help: str,
-        action: str = 'default'
+        action: str = 'default',
+        max_append: str = '*'
     ) -> None:
         """Add argument.
 
@@ -71,7 +73,8 @@ class ArgEasy(object):
 
         self._commands[name] = {
             'help': help,
-            'action': action
+            'action': action,
+            'max_append': max_append
         }
 
         setattr(self._default_namespace, name, None)
@@ -81,7 +84,7 @@ class ArgEasy(object):
         name: str,
         help: str,
         action: str = 'default',
-        required: bool = False
+        max_append: str = '*'
     ) -> None:
         """Create a new flag.
 
@@ -107,7 +110,7 @@ class ArgEasy(object):
         self._flags[name] = {
             'help': help,
             'action': action,
-            'required': required
+            'max_append': max_append
         }
 
         name = name.replace('-', '')
@@ -156,11 +159,30 @@ class ArgEasy(object):
             if flag in arg_flags:
                 action = info['action']
                 flag_index = args.index(flag)
+                max_append = info['max_append']
 
                 if action == 'store_true':
                     value = True
                 elif action == 'store_false':
                     value = False
+                elif action == 'append':
+                    if len(args[flag_index:]) == 1:
+                        # invalid argument use
+                        print(f'Invalid use of the flag "{flag}":')
+                        print(f'    {flag}: {info["help"]}')
+                        return None
+                    else:
+                        if max_append == '*':
+                            value = args[flag_index + 1:]
+                        else:
+                            max_append = int(max_append) + (flag_index + 1)
+
+                            if len(args[flag_index + 1:]) > max_append:
+                                print(f'Invalid use of the flag "{flag}":')
+                                print(f'    {flag}: {info["help"]}')
+                                return None
+
+                            value = args[flag_index + 1:max_append]
                 elif action == 'default':
                     if len(args[flag_index:]) < 2:
                         # invalid argument use
@@ -181,11 +203,30 @@ class ArgEasy(object):
 
             if cmd == command:
                 action = info['action']
+                max_append = info['max_append']
 
                 if action == 'store_true':
                     value = True
                 elif action == 'store_false':
                     value = False
+                elif action == 'append':
+                    if len(args[0:]) == 1:
+                        # invalid argument use
+                        print(f'Invalid use of the flag "{flag}":')
+                        print(f'    {flag}: {info["help"]}')
+                        return None
+                    else:
+                        if max_append == '*':
+                            value = args[1:]
+                        else:
+                            max_append = int(max_append) + 1
+
+                            if len(args[1:]) > max_append:
+                                print(f'Invalid use of the flag "{flag}":')
+                                print(f'    {flag}: {info["help"]}')
+                                return None
+
+                            value = args[1:max_append]
                 elif action == 'default':
                     if len(args) < 2:
                         # invalid argument use
