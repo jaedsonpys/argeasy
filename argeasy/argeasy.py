@@ -129,6 +129,10 @@ class ArgEasy(object):
         for cmd, info in self._commands.items():
             print(f'    {cmd}: {info["help"]}')
 
+        print('\flags:')
+        for flag, info in self._flags.items():
+            print(f'    {flag}: {info["help"]}')
+
     def get_args(self) -> Namespace:
         """Get args.
         
