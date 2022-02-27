@@ -142,6 +142,33 @@ class ArgEasy(object):
             return self._default_namespace
 
         command = args[0]
+        arg_flags = [a for a in args if a.startswith('-')]
+
+        for flag, info in self._flags.items():
+            value = None
+
+            if flag in arg_flags:
+                action = info['action']
+                flag_index = args.index(flag)
+
+                if action == 'store_true':
+                    value = True
+                elif action == 'store_false':
+                    value = False
+                elif action == 'default':
+                    if len(args[flag_index:]) < 1:
+                        # invalid argument use
+                        print(f'Invalid use of the flag "{flag}":')
+                        print(f'    {flag}: {info["help"]}')
+                        return None
+                    else:
+                        next_arg = flag_index + 1
+                        value = args[next_arg]
+
+            flag = flag.replace('-', '')
+            flag = flag.replace('--', '')
+
+            setattr(namespace, flag, value)
 
         for cmd, info in self._commands.items():
             value = None
@@ -158,6 +185,7 @@ class ArgEasy(object):
                         # invalid argument use
                         print(f'Invalid use of the command "{cmd}":')
                         print(f'    add: {info["help"]}')
+                        return None
                     else:
                         value = args[1]
 
