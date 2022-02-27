@@ -159,13 +159,14 @@ class ArgEasy(object):
             print(f'unrecognized command: {command}')
             print('use --help to see commands')
 
-            return None
+            return self._default_namespace
 
         for flag, info in self._flags.items():
             value = None
 
             if flag == '-h' or flag == '--help':
-                return self._print_help()
+                self._print_help()
+                return self._default_namespace
 
             if flag in arg_flags:
                 action = info['action']
@@ -181,7 +182,7 @@ class ArgEasy(object):
                         # invalid argument use
                         print(f'Invalid use of the flag "{flag}":')
                         print(f'    {flag}: {info["help"]}')
-                        return None
+                        return self._default_namespace
                     else:
                         if max_append == '*':
                             arg_list = args[flag_index + 1:]
@@ -191,7 +192,7 @@ class ArgEasy(object):
                             if len(args[flag_index + 1:]) > max_append:
                                 print(f'Invalid use of the flag "{flag}":')
                                 print(f'    {flag}: {info["help"]}')
-                                return None
+                                return self._default_namespace
 
                             arg_list = args[flag_index + 1:max_append]
 
@@ -208,7 +209,7 @@ class ArgEasy(object):
                         # invalid argument use
                         print(f'Invalid use of the flag "{flag}":')
                         print(f'    {flag}: {info["help"]}')
-                        return None
+                        return self._default_namespace
                     else:
                         next_arg = flag_index + 1
                         value = args[next_arg]
@@ -234,7 +235,7 @@ class ArgEasy(object):
                         # invalid argument use
                         print(f'Invalid use of the flag "{flag}":')
                         print(f'    {flag}: {info["help"]}')
-                        return None
+                        return self._default_namespace
                     else:
                         if max_append == '*':
                             arg_list = args[1:]
@@ -261,7 +262,7 @@ class ArgEasy(object):
                         # invalid argument use
                         print(f'Invalid use of the command "{cmd}":')
                         print(f'    add: {info["help"]}')
-                        return None
+                        return self._default_namespace
                     else:
                         value = args[1]
 
