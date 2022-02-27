@@ -110,6 +110,9 @@ class ArgEasy(object):
             'required': required
         }
 
+        name = name.replace('-', '')
+        name = name.replace('--', '')
+            
         setattr(self._default_namespace, name, None)
 
     def _print_help(self) -> None:
