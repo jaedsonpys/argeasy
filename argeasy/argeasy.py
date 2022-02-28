@@ -30,6 +30,7 @@ class ArgEasy(object):
         self,
         description: str = None,
         version: str = None,
+        project_name: str = None
     ) -> None:
         """Inicializes the ArgEasy.
 
@@ -53,6 +54,7 @@ class ArgEasy(object):
 
         self.version = version
         self.description = description
+        self.project_name = project_name
 
         # add default flags
         self.add_flag('--help', 'View the help', action='store_true')
