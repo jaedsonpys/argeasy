@@ -124,14 +124,18 @@ class ArgEasy(object):
 
     def _print_help(self) -> None:
         print(f'usage: [command] [**optional] [flags]')
+        if self.description:
+            print(f'\n{self.description}')
 
-        print('\ncommands:')
-        for cmd, info in self._commands.items():
-            print(f'    {cmd}: {info["help"]}')
+        if self._commands:
+            print('\ncommands:')
+            for cmd, info in self._commands.items():
+                print(f'    {cmd}: {info["help"]}')
 
-        print('\nflags:')
-        for flag, info in self._flags.items():
-            print(f'    {flag}: {info["help"]}')
+        if self._flags:
+            print('\nflags:')
+            for flag, info in self._flags.items():
+                print(f'    {flag}: {info["help"]}')
 
     def get_args(self) -> Namespace:
         """Get args.
