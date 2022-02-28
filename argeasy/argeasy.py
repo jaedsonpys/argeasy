@@ -54,6 +54,10 @@ class ArgEasy(object):
         self.version = version
         self.description = description
 
+        # add default flags
+        self.add_flag('--help', 'View the help', action='store_true')
+        self.add_flag('--version', 'View the version', action='store_true')
+
     def add_argument(
         self,
         name: str,
