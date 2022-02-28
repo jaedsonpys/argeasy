@@ -172,10 +172,6 @@ class ArgEasy(object):
         for flag, info in self._flags.items():
             value = None
 
-            if flag == '-h' or flag == '--help':
-                self._print_help()
-                return self._default_namespace
-
             if flag in arg_flags:
                 action = info['action']
                 flag_index = args.index(flag)
@@ -226,6 +222,12 @@ class ArgEasy(object):
             flag = flag.replace('--', '')
 
             setattr(namespace, flag, value)
+
+        # check default flags
+        if namespace.help:
+            self._print_help()
+        elif namespace.version:
+            self._print_version()
 
         for cmd, info in self._commands.items():
             value = None
