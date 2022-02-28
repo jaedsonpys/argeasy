@@ -171,8 +171,8 @@ class ArgEasy(object):
         command = args[0]
         arg_flags = [a for a in args if a.startswith('-')]
 
-        if command not in self._commands:
-            print(f'unrecognized command: {command}')
+        if command not in self._commands and command not in self._flags:
+            print(f'unrecognized command or flag: {command}')
             print('use --help to see commands')
 
             return self._default_namespace
