@@ -251,8 +251,8 @@ class ArgEasy(object):
                 elif action == 'append':
                     if len(args[0:]) == 1:
                         # invalid argument use
-                        print(f'Invalid use of the flag "{flag}":')
-                        print(f'    {flag}: {info["help"]}')
+                        print(f'Invalid use of the argument "{cmd}":')
+                        print(f'    {cmd}: {info["help"]}')
                         return self._default_namespace
                     else:
                         if max_append == '*':
@@ -261,8 +261,8 @@ class ArgEasy(object):
                             max_append = int(max_append) + 1
 
                             if len(args[1:]) > max_append:
-                                print(f'Invalid use of the flag "{flag}":')
-                                print(f'    {flag}: {info["help"]}')
+                                print(f'Invalid use of the argument "{cmd}":')
+                                print(f'    {cmd}: {info["help"]}')
                                 return None
 
                             arg_list = args[1:max_append]
@@ -278,8 +278,8 @@ class ArgEasy(object):
                 elif action == 'default':
                     if len(args) < 2:
                         # invalid argument use
-                        print(f'Invalid use of the command "{cmd}":')
-                        print(f'    add: {info["help"]}')
+                        print(f'Invalid use of the argument "{cmd}":')
+                        print(f'    {cmd}: {info["help"]}')
                         return self._default_namespace
                     else:
                         value = args[1]
