@@ -23,7 +23,17 @@ if args.foo:
     print('foo')
 ```
 
-Neste código, adicionamos um argumento chamado `foo` e definimos a ação (action) como `store_true`, ou seja, quando esse argumento for chamado, o valor dele será `True`. Caso contrário, o valor será `None`
+Neste código, adicionamos um argumento chamado `foo` e definimos a ação (action) como `store_true`, ou seja, quando esse argumento for chamado, o valor dele será `True`. Caso contrário, o valor será `None`.
+
+Também é possível definir informações sobre sua aplicação, como versão, descrição e nome do projeto. Faça isso na instância da classe `ArgEasy`:
+
+```python
+argeasy.ArgEasy(
+    project_name='My App',
+    description='Description of my App',
+    version='1.0.0'
+)
+```
 
 ### Actions
 
