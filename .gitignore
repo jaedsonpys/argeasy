@@ -3,3 +3,4 @@ build
 dist
 argeasy.egg-info
 PROJECT.md
+venv
