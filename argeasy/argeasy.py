@@ -143,11 +143,15 @@ class ArgEasy(object):
             for flag, info in self._flags.items():
                 print(f'    {flag}: {info["help"]}')
 
+        sys.exit(0)
+
     def _print_version(self) -> None:
         if not self.project_name:
             print(f'Project: {self.version}')
         else:
             print(f'{self.project_name}: {self.version}')
+
+        sys.exit(0)
 
     def get_args(self) -> Namespace:
         """Get args.
