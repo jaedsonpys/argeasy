@@ -1,16 +1,21 @@
 # ArgEasy
 
-O Argeasy é um analisador de argumentos de linha de comando simples e intuitivo para qualquer usuário, facilitando a construção de aplicações **CLI**. Com ele, você pode:
+Argeasy is a *simple and intuitive* command line argument parser for any user, making it easy to build **CLI** applications. With it, you can:
 
-- Obter argumentos;
-- Obter flags;
-- Definir a ação a ser tomada quando um argumento ou flag for chamado;
+- Define arguments;
+- Set flags;
+- Set application name, description and version;
+- Define the action to be taken when an argument or flag is called.
 
-Além de possuir mensagens de ajudas ao usuário bem estruturadas e com todas as informações necessárias.
+In addition to having well-structured **user help messages** with all the necessary information. To install this library, use `pip`:
 
-## Exemplo de uso
+```
+pip install argeasy
+```
 
-Aqui vai um exemplo simples de uso:
+## Example of use
+
+Here is a simple usage example:
 
 ```python
 import argeasy
@@ -23,9 +28,9 @@ if args.foo:
     print('foo')
 ```
 
-Neste código, adicionamos um argumento chamado `foo` e definimos a ação (action) como `store_true`, ou seja, quando esse argumento for chamado, o valor dele será `True`. Caso contrário, o valor será `None`.
+In this code, we add an argument called `foo` and set the action (in the `action` argument) to be taken as `store_true`, that is, when this argument is called, its value will be `True`. Otherwise, the value will be `None`.
 
-Também é possível definir informações sobre sua aplicação, como versão, descrição e nome do projeto. Faça isso na instância da classe `ArgEasy`:
+You can also define information about your application, such as version, description and project name. Do this in the instance of the `ArgEasy` class:
 
 ```python
 argeasy.ArgEasy(
@@ -37,17 +42,19 @@ argeasy.ArgEasy(
 
 ### Actions
 
-Action é a ação que o `argeasy` deve tomar ao perceber um argumento. Veja as ações disponíveis:
+Action is the action that `argeasy` should take when it perceives an argument. See available actions:
 
-- `default`: obtém o próximo argumento como resposta. Por exemplo, se o argumento `add` estiver definido como `default` e digitarmos o comando `add README.md`, o conteúdo da variável `args.add` será `README.md`;
-- `store_true`: se o argumento for detectado, o valor dele será `True`;
-- `store_false`: se o argumento for detectado, o valor dele será `False`;
-- `append`: se o argumento for detectado, ele irá obter todos os outros argumentos presentes a frente dele. Por exemplo, no argumento `add`, podemos obter vários arquivos de uma vez com o comando `add README.md app.py test.txt` utilizando a ação `append`. Também é possível definir o limite de argumentos;
+- `default`: get the next argument as a value;
+- `store_true`: if the argument is detected, its value will be `True`;
+- `store_false`: if the argument is detected, its value will be `False`;
+- `append`: if the argument is detected, it will get all other arguments present in front of it.
 
-## Licença
+## License
 
+```
 GNU GENERAL PUBLIC LICENSE
 Version 3, 29 June 2007
+```
 
 Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
 Everyone is permitted to copy and distribute verbatim copies
