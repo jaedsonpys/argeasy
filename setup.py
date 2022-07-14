@@ -7,9 +7,10 @@ setup(
     author='Jaedson Silva',
     author_email='imunknowuser@protonmail.com',
     packages=['argeasy'],
+    url='https://github.com/jaedsonpys/argeasy',
     project_urls={
-        'Código fonte': 'https://github.com/jaedsonpys/argeasy',
-        'Licença': 'https://github.com/jaedsonpys/argeasy/blob/master/LICENSE'
+        'Source code': 'https://github.com/jaedsonpys/argeasy',
+        'License': 'https://github.com/jaedsonpys/argeasy/blob/master/LICENSE'
     },
-    license='GNU General Public License v3.0'
+    license='GPL v3.0'
 )
