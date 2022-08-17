@@ -156,7 +156,7 @@ class ArgEasy(object):
 
         return args, arg_flags
 
-    def get_args(self) -> Namespace:
+    def parse(self) -> Namespace:
         """Get args.
         
         Checks the obtained arguments 
