@@ -3,17 +3,12 @@ import sys
 
 class Namespace(object):
     def __repr__(self):
-        def get_attr():
-            attr = []
-            for i in self.__dir__():
-                if not i.startswith('__'): attr.append(i)
-            return attr
-
-        attr = get_attr()
+        attr = [i for i in self.__dir__() if not i.startswith('__')]
         repr = 'Namespace('
 
         for c, a in enumerate(attr):
             value = self.__getattribute__(a)
+
             if isinstance(value, str):
                 value = f'"{value}"'
 
