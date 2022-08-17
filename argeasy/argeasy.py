@@ -150,6 +150,12 @@ class ArgEasy(object):
 
         sys.exit(0)
 
+    def _get_args(self) -> tuple:
+        args = sys.argv[1:]
+        arg_flags = [a for a in args if a.startswith('-')]
+
+        return args, arg_flags
+
     def get_args(self) -> Namespace:
         """Get args.
         
@@ -163,14 +169,13 @@ class ArgEasy(object):
         """
 
         self.namespace = Namespace()
-        args = sys.argv[1:]
+        args, args_flags = self._get_args()
 
         if len(args) == 0:
             self._print_help()
             return self._default_namespace
 
         command = args[0]
-        arg_flags = [a for a in args if a.startswith('-')]
 
         if command not in self._commands and command not in self._flags:
             print(f'unrecognized command or flag: {command}')
@@ -181,7 +186,7 @@ class ArgEasy(object):
         for flag, info in self._flags.items():
             value = None
 
-            if flag in arg_flags:
+            if flag in args_flags:
                 action = info['action']
                 flag_index = args.index(flag)
                 max_append = info['max_append']
