@@ -16,7 +16,6 @@ setup(
     packages=['argeasy'],
     url='https://github.com/jaedsonpys/argeasy',
     project_urls={
-        'Source code': 'https://github.com/jaedsonpys/argeasy',
         'License': 'https://github.com/jaedsonpys/argeasy/blob/master/LICENSE'
     },
     keywords=['CLI', 'command', 'argument', 'parser'],
