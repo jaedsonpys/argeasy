@@ -27,11 +27,13 @@ class ArgEasy(object):
         description: str = None,
         version: str = None
     ) -> None:
-        """Inicializes the ArgEasy.
+        """Create a new instance of ArgEasy.
 
-        :param description: Description of CLI, defaults to None
+        :param name: Application name, defaults to None
+        :type name: str, optional
+        :param description: Application description, defaults to None
         :type description: str, optional
-        :param version: Version of App, defaults to None
+        :param version: Application version, defaults to None
         :type version: str, optional
         """
 
