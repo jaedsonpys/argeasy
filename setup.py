@@ -8,6 +8,7 @@ with open('README.md', 'r') as reader:
 setup(
     name='argeasy',
     version=__version__,
+    description='ArgEasy, command line argument handler.',
     long_description=readme,
     long_description_content_type='text/markdown',
     author='Jaedson Silva',
