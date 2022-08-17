@@ -157,7 +157,8 @@ class ArgEasy(object):
         return args, arg_flags
 
     def parse(self) -> Namespace:
-        """Get args.
+        """Formats the command line arguments
+        and returns them in an object.
         
         Checks the obtained arguments 
         and determines the value of them
