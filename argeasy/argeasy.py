@@ -162,7 +162,7 @@ class ArgEasy(object):
         called by the command line.
         """
 
-        namespace = Namespace()
+        self.namespace = Namespace()
         args = sys.argv[1:]
 
         if len(args) == 0:
@@ -230,12 +230,12 @@ class ArgEasy(object):
             flag = flag.replace('-', '')
             flag = flag.replace('--', '')
 
-            setattr(namespace, flag, value)
+            setattr(self.namespace, flag, value)
 
         # check default flags
-        if namespace.help:
+        if self.namespace.help:
             self._print_help()
-        elif namespace.version:
+        elif self.namespace.version:
             self._print_version()
 
         for cmd, info in self._commands.items():
@@ -285,6 +285,6 @@ class ArgEasy(object):
                     else:
                         value = args[1]
 
-            setattr(namespace, cmd, value)
+            setattr(self.namespace, cmd, value)
 
-        return namespace
+        return self.namespace
