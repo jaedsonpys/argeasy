@@ -1,9 +1,15 @@
 from setuptools import setup
+
 from argeasy import __version__
+
+with open('README.md', 'r') as reader:
+    readme = reader.read()
 
 setup(
     name='argeasy',
     version=__version__,
+    long_description=readme,
+    long_description_content_type='text/markdown',
     author='Jaedson Silva',
     author_email='imunknowuser@protonmail.com',
     packages=['argeasy'],
