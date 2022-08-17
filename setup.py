@@ -19,5 +19,6 @@ setup(
         'Source code': 'https://github.com/jaedsonpys/argeasy',
         'License': 'https://github.com/jaedsonpys/argeasy/blob/master/LICENSE'
     },
+    keywords=['CLI', 'command', 'argument', 'parser']
     license='GPL v3.0'
 )
