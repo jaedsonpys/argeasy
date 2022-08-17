@@ -23,9 +23,9 @@ class Namespace(object):
 class ArgEasy(object):
     def __init__(
         self,
+        name: str = None,
         description: str = None,
-        version: str = None,
-        project_name: str = None
+        version: str = None
     ) -> None:
         """Inicializes the ArgEasy.
 
@@ -47,9 +47,9 @@ class ArgEasy(object):
 
         self._default_namespace = Namespace()
 
-        self.version = version
+        self.project_name = name
         self.description = description
-        self.project_name = project_name
+        self.version = version
 
         # add default flags
         self.add_flag('--help', 'View the help', action='store_true')
