@@ -211,42 +211,7 @@ class ArgEasy(object):
 
             setattr(self.namespace, flag, value)
 
-    def parse(self) -> Namespace:
-        """Formats the command line arguments
-        and returns them in an object.
-        
-        Checks the obtained arguments 
-        and determines the value of them
-        by returning a Namespace object.
-
-        If the argument has the value of
-        "None", it means that it was not
-        called by the command line.
-        """
-
-        self.namespace = Namespace()
-        args, args_flags = self._get_args()
-
-        if len(args) == 0:
-            self._print_help()
-            return self._default_namespace
-
-        command = args[0]
-
-        if command not in self._commands and command not in self._flags:
-            print(f'unrecognized command or flag: {command}')
-            print('use --help to see commands')
-
-            return self._default_namespace
-
-        self._get_flags(args, args_flags)
-
-        # check default flags
-        if self.namespace.help:
-            self._print_help()
-        elif self.namespace.version:
-            self._print_version()
-
+    def _get_command(self, args: list, command: str):
         for cmd, info in self._commands.items():
             value = None
 
@@ -295,5 +260,42 @@ class ArgEasy(object):
                         value = args[1]
 
             setattr(self.namespace, cmd, value)
+
+    def parse(self) -> Namespace:
+        """Formats the command line arguments
+        and returns them in an object.
+        
+        Checks the obtained arguments 
+        and determines the value of them
+        by returning a Namespace object.
+
+        If the argument has the value of
+        "None", it means that it was not
+        called by the command line.
+        """
+
+        self.namespace = Namespace()
+        args, args_flags = self._get_args()
+
+        if len(args) == 0:
+            self._print_help()
+            return self._default_namespace
+
+        command = args[0]
+
+        if command not in self._commands and command not in self._flags:
+            print(f'unrecognized command or flag: {command}')
+            print('use --help to see commands')
+
+            return self._default_namespace
+
+        self._get_flags(args, args_flags)
+        self._get_command(args, command)
+
+        # check default flags
+        if self.namespace.help:
+            self._print_help()
+        elif self.namespace.version:
+            self._print_version()
 
         return self.namespace
