@@ -27,6 +27,10 @@ def main():
 
     if args.say:
         if args.c:
+            if args.c == 'close':
+                print('\033[31mChoose a valid color\033[m')
+                return 0
+            
             get_color = COLORS.get(args.c)
             close = COLORS.get('close')
 
