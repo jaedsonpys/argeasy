@@ -1,5 +1,7 @@
 import sys
 
+from . import exceptions
+
 
 class Namespace(object):
     def __repr__(self):
@@ -225,10 +227,7 @@ class ArgEasy(object):
                     value = False
                 elif action == 'append':
                     if len(args[0:]) == 1:
-                        # invalid argument use
-                        print(f'Invalid use of the argument "{cmd}":')
-                        print(f'    {cmd}: {info["help"]}')
-                        return self._default_namespace
+                        raise exceptions.InvalidArgumentUseError('Invalid argument use')
                     else:
                         if max_append == '*':
                             arg_list = args[1:]
@@ -290,7 +289,12 @@ class ArgEasy(object):
             return self._default_namespace
 
         self._get_flags(args, args_flags)
-        self._get_command(args, command)
+
+        try:
+            self._get_command(args, command)
+        except exceptions.InvalidArgumentUseError:
+            print(f'Invalid use of the argument "{command}":')
+            return self._default_namespace
 
         # check default flags
         if self.namespace.help:
