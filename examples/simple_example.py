@@ -11,9 +11,9 @@ COLORS = {
 
 def main():
     argeasy = ArgEasy(
-        description='Test of ArgEasy project',
-        version='1.0.0',
-        project_name='ArgEasy'
+        name='ArgEasy',
+        version='0.1.0',
+        description='ArgEasy test'
     )
 
     argeasy.add_argument('say', 'Say something')
@@ -23,7 +23,7 @@ def main():
     argeasy.add_flag('-c', 'Select color of text (RGB)')
     argeasy.add_flag('-m', 'Max range numbers')
 
-    args = argeasy.get_args()
+    args = argeasy.parse()
 
     if args.say:
         if args.c:
