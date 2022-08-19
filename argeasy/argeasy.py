@@ -67,14 +67,21 @@ class ArgEasy(object):
         action: str = 'default',
         max_append: str = '*'
     ) -> None:
-        """Add argument.
+        """Adds a new argument.
+
+        The available actions are:
+        default (returns the next argument as value),
+        store_true, store_false, and append.
 
         :param name: Argument name
         :type name: str
-        :param help: Help to argument
+        :param help: Usage help for the argument
         :type help: str
-        :param action: Argument action
-        :type action: str
+        :param action: Argument action, defaults to 'default'
+        :type action: str, optional
+        :param max_append: If the action is "append", this
+        parameter sets the maximum number of items, defaults to '*'
+        :type max_append: str, optional
         :raises Exception: Action not recognized
         """
 
@@ -96,7 +103,11 @@ class ArgEasy(object):
         action: str = 'default',
         max_append: str = '*'
     ) -> None:
-        """Create a new flag.
+        """Adds a new flag.
+
+        The available actions are:
+        default (returns the next argument as value),
+        store_true, store_false, and append.
 
         The flag name can have only
         one hyphen if the flag has
