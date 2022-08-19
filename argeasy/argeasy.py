@@ -1,4 +1,5 @@
 import sys
+from typing import Union
 
 from . import exceptions
 
@@ -158,18 +159,16 @@ class ArgEasy(object):
 
         return args, arg_flags
 
-    def _append_arguments(self, args: list, max_append: str, index: int):
+    def _append_arguments(self, args: list, max_append: str, index: int) -> Union[None, list]:
         if max_append == '*':
             arg_list = args[index + 1:]
         else:
             max_append = int(max_append) + (index + 1)
 
-            if len(args[index + 1:]) > max_append:
-                # print(f'Invalid use of the flag "{flag}":')
-                # print(f'    {flag}: {info["help"]}')
-                return self._default_namespace
-
-            arg_list = args[index + 1:max_append]
+            if not len(args[index + 1:]) > max_append:
+                arg_list = args[index + 1:max_append]
+            else:
+                return None
 
         arguments = []
 
@@ -197,8 +196,11 @@ class ArgEasy(object):
                 elif action == 'append':
                     if len(args[flag_index:]) == 1:
                         raise exceptions.InvalidFlagUseError(f'Invalid use of the flag "{flag}"')
-                    else:
-                        value = self._append_arguments(args, max_append, flag_index)
+
+                    value = self._append_arguments(args, max_append, flag_index)
+
+                    if not value:
+                        raise exceptions.InvalidFlagUseError(f'Invalid use of the flag "{flag}"')
                 elif action == 'default':
                     if len(args[flag_index:]) < 2:
                         raise exceptions.InvalidFlagUseError(f'Invalid use of the flag "{flag}"')
@@ -227,8 +229,11 @@ class ArgEasy(object):
                 elif action == 'append':
                     if len(args[0:]) == 1:
                         raise exceptions.InvalidArgumentUseError('Invalid argument use')
-                    else:
-                        value = self._append_arguments(args, max_append, cmd_index)
+
+                    value = self._append_arguments(args, max_append, cmd_index)
+
+                    if not value:
+                        raise exceptions.InvalidArgumentUseError('Invalid argument use')
                 elif action == 'default':
                     if len(args) < 2:
                         raise exceptions.InvalidArgumentUseError('Invalid argument use')                        
