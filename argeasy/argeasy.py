@@ -196,18 +196,12 @@ class ArgEasy(object):
                     value = False
                 elif action == 'append':
                     if len(args[flag_index:]) == 1:
-                        # invalid argument use
-                        print(f'Invalid use of the flag "{flag}":')
-                        print(f'    {flag}: {info["help"]}')
-                        return self._default_namespace
+                        raise exceptions.InvalidFlagUseError(f'Invalid use of the flag "{flag}"')
                     else:
                         value = self._append_arguments(args, max_append, flag_index)
                 elif action == 'default':
                     if len(args[flag_index:]) < 2:
-                        # invalid argument use
-                        print(f'Invalid use of the flag "{flag}":')
-                        print(f'    {flag}: {info["help"]}')
-                        return self._default_namespace
+                        raise exceptions.InvalidFlagUseError(f'Invalid use of the flag "{flag}"')
                     else:
                         next_arg = flag_index + 1
                         value = args[next_arg]
@@ -237,10 +231,7 @@ class ArgEasy(object):
                         value = self._append_arguments(args, max_append, cmd_index)
                 elif action == 'default':
                     if len(args) < 2:
-                        # invalid argument use
-                        print(f'Invalid use of the argument "{cmd}":')
-                        print(f'    {cmd}: {info["help"]}')
-                        return self._default_namespace
+                        raise exceptions.InvalidArgumentUseError('Invalid argument use')                        
                     else:
                         value = args[1]
 
@@ -274,12 +265,15 @@ class ArgEasy(object):
 
             return self._default_namespace
 
-        self._get_flags(args, args_flags)
+        try:
+            self._get_flags(args, args_flags)
+        except exceptions.InvalidFlagUseError as err:
+            print(err.message)
 
         try:
             self._get_command(args, command)
         except exceptions.InvalidArgumentUseError:
-            print(f'Invalid use of the argument "{command}":')
+            print(f'Invalid use of the argument "{command}"')
             return self._default_namespace
 
         # check default flags
