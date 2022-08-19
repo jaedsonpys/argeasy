@@ -158,6 +158,29 @@ class ArgEasy(object):
 
         return args, arg_flags
 
+    def _append_arguments(self, args: list, max_append: str, index: int):
+        if max_append == '*':
+            arg_list = args[index + 1:]
+        else:
+            max_append = int(max_append) + (index + 1)
+
+            if len(args[index + 1:]) > max_append:
+                # print(f'Invalid use of the flag "{flag}":')
+                # print(f'    {flag}: {info["help"]}')
+                return self._default_namespace
+
+            arg_list = args[index + 1:max_append]
+
+        arguments = []
+
+        for a in arg_list:
+            if a.startswith('-'):
+                break
+            else:
+                arguments.append(a)
+
+        return arguments
+
     def _get_flags(self, args: list, arg_flags: list) -> dict:
         for flag, info in self._flags.items():
             value = None
@@ -178,26 +201,7 @@ class ArgEasy(object):
                         print(f'    {flag}: {info["help"]}')
                         return self._default_namespace
                     else:
-                        if max_append == '*':
-                            arg_list = args[flag_index + 1:]
-                        else:
-                            max_append = int(max_append) + (flag_index + 1)
-
-                            if len(args[flag_index + 1:]) > max_append:
-                                print(f'Invalid use of the flag "{flag}":')
-                                print(f'    {flag}: {info["help"]}')
-                                return self._default_namespace
-
-                            arg_list = args[flag_index + 1:max_append]
-
-                        value = []
-
-                        # filtrando flags da lista
-                        # de argumentos
-                        for a in arg_list:
-                            if a.startswith('-'):
-                                break
-                            value.append(a)
+                        value = self._append_arguments(args, max_append, flag_index)
                 elif action == 'default':
                     if len(args[flag_index:]) < 2:
                         # invalid argument use
@@ -220,6 +224,7 @@ class ArgEasy(object):
             if cmd == command:
                 action = info['action']
                 max_append = info['max_append']
+                cmd_index = args.index(command)
 
                 if action == 'store_true':
                     value = True
@@ -229,26 +234,7 @@ class ArgEasy(object):
                     if len(args[0:]) == 1:
                         raise exceptions.InvalidArgumentUseError('Invalid argument use')
                     else:
-                        if max_append == '*':
-                            arg_list = args[1:]
-                        else:
-                            max_append = int(max_append) + 1
-
-                            if len(args[1:]) > max_append:
-                                print(f'Invalid use of the argument "{cmd}":')
-                                print(f'    {cmd}: {info["help"]}')
-                                return None
-
-                            arg_list = args[1:max_append]
-
-                        value = []
-
-                        # filtrando flags da lista
-                        # de argumentos
-                        for a in arg_list:
-                            if a.startswith('-'):
-                                break
-                            value.append(a)
+                        value = self._append_arguments(args, max_append, cmd_index)
                 elif action == 'default':
                     if len(args) < 2:
                         # invalid argument use
