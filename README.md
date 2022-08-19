@@ -21,9 +21,11 @@ Here is a simple usage example:
 import argeasy
 
 parser = argeasy.ArgEasy()
-parser.add_argument('foo', 'print foo', action='store_true')
 
-args = parser.get_args()
+parser.add_argument('foo', 'print foo', action='store_true')
+parser.add_flag('--bar', 'print a text')
+
+args = parser.parse()
 if args.foo:
     print('foo')
 ```
@@ -34,7 +36,7 @@ You can also define information about your application, such as version, descrip
 
 ```python
 argeasy.ArgEasy(
-    project_name='My App',
+    name='My App',
     description='Description of my App',
     version='1.0.0'
 )
