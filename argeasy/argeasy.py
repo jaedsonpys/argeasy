@@ -269,6 +269,7 @@ class ArgEasy(object):
             self._get_flags(args, args_flags)
         except exceptions.InvalidFlagUseError as err:
             print(err.message)
+            return self._default_namespace
 
         try:
             self._get_command(args, command)
