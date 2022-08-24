@@ -225,33 +225,32 @@ class ArgEasy(object):
             setattr(self.namespace, flag, value)
 
     def _get_command(self, args: list, command: str):
-        for cmd, info in self._commands.items():
-            value = None
+        info = self._commands.get(command)
 
-            if cmd == command:
-                action = info['action']
-                max_append = info['max_append']
-                cmd_index = args.index(command)
+        if info:
+            action = info['action']
+            max_append = info['max_append']
+            cmd_index = args.index(command)
 
-                if action == 'store_true':
-                    value = True
-                elif action == 'store_false':
-                    value = False
-                elif action == 'append':
-                    if len(args[0:]) == 1:
-                        raise exceptions.InvalidArgumentUseError('Invalid argument use')
+            if action == 'store_true':
+                value = True
+            elif action == 'store_false':
+                value = False
+            elif action == 'append':
+                if len(args[0:]) == 1:
+                    raise exceptions.InvalidArgumentUseError('Invalid argument use')
 
-                    value = self._append_arguments(args, max_append, cmd_index)
+                value = self._append_arguments(args, max_append, cmd_index)
 
-                    if not value:
-                        raise exceptions.InvalidArgumentUseError('Invalid argument use')
-                elif action == 'default':
-                    if len(args) < 2:
-                        raise exceptions.InvalidArgumentUseError('Invalid argument use')                        
-                    else:
-                        value = args[1]
+                if not value:
+                    raise exceptions.InvalidArgumentUseError('Invalid argument use')
+            elif action == 'default':
+                if len(args) < 2:
+                    raise exceptions.InvalidArgumentUseError('Invalid argument use')
+                else:
+                    value = args[1]
 
-            setattr(self.namespace, cmd, value)
+            setattr(self.namespace, command, value)
 
     def parse(self) -> Namespace:
         """Formats the command line arguments
