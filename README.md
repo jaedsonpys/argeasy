@@ -2,7 +2,7 @@
 
 Argeasy is a *simple and intuitive* command line argument parser for any user, making it easy to build **CLI** applications. With it, you can:
 
-- Define arguments;
+- Set arguments;
 - Set flags;
 - Set application name, description and version;
 - Define the action to be taken when an argument or flag is called.
@@ -26,6 +26,7 @@ parser.add_argument('foo', 'print foo', action='store_true')
 parser.add_flag('--bar', 'print a text')
 
 args = parser.parse()
+
 if args.foo:
     print('foo')
 ```
