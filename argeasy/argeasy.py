@@ -50,7 +50,7 @@ class ArgEasy(object):
             'default'
         ]
 
-        self._default_namespace = Namespace()
+        self.namespace = Namespace()
 
         self.project_name = name
         self.description = description
@@ -94,7 +94,7 @@ class ArgEasy(object):
             'max_append': max_append
         }
 
-        setattr(self._default_namespace, name, None)
+        setattr(self.namespace, name, None)
 
     def add_flag(
         self,
@@ -137,7 +137,7 @@ class ArgEasy(object):
         name = name.replace('-', '')
         name = name.replace('--', '')
             
-        setattr(self._default_namespace, name, None)
+        setattr(self.namespace, name, None)
 
     def _print_help(self) -> None:
         print(f'usage: [command] [**optional] [flags]')
@@ -265,12 +265,11 @@ class ArgEasy(object):
         called by the command line.
         """
 
-        self.namespace = Namespace()
         args, args_flags = self._get_args()
 
         if len(args) == 0:
             self._print_help()
-            return self._default_namespace
+            return self.namespace
 
         command = args[0]
 
@@ -278,19 +277,19 @@ class ArgEasy(object):
             print(f'unrecognized command or flag: {command}')
             print('use --help to see commands')
 
-            return self._default_namespace
+            return self.namespace
 
         try:
             self._get_flags(args, args_flags)
         except exceptions.InvalidFlagUseError as err:
             print(err.message)
-            return self._default_namespace
+            return self.namespace
 
         try:
             self._get_command(args, command)
         except exceptions.InvalidArgumentUseError:
             print(f'Invalid use of the argument "{command}"')
-            return self._default_namespace
+            return self.namespace
 
         # check default flags
         if self.namespace.help:
