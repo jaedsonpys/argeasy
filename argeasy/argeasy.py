@@ -237,12 +237,9 @@ class ArgEasy(object):
             elif action == 'store_false':
                 value = False
             elif action == 'append':
-                if len(args[0:]) == 1:
-                    raise exceptions.InvalidArgumentUseError('Invalid argument use')
-
                 value = self._append_arguments(args, max_append, cmd_index)
 
-                if not value:
+                if value is None:
                     raise exceptions.InvalidArgumentUseError('Invalid argument use')
             elif action == 'default':
                 if len(args) < 2:
@@ -275,8 +272,7 @@ class ArgEasy(object):
 
         if command not in self._commands and command not in self._flags:
             print(f'unrecognized command or flag: {command}')
-            print('use --help to see commands')
-
+            print('use --help to see flags and arguments')
             return self.namespace
 
         try:
