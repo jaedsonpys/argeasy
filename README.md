@@ -31,7 +31,7 @@ if args.foo:
     print('foo')
 ```
 
-In this code, we add an argument called `foo` and set the action (in the `action` argument) to be taken as `store_true`, that is, when this argument is called, its value will be `True`. Otherwise, the value will be `None`.
+In this code, we add an argument called `foo` and set the action (in the `action` argument) to be taken as `store_true`, that is, when this argument is called, its value will be `True`. Otherwise, the value will be `None`. Flags named with separate words like `--add-email` will be changed and can be obtained with `args.add_email`.
 
 You can also define information about your application, such as version, description and project name. Do this in the instance of the `ArgEasy` class:
 
