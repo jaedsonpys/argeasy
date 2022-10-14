@@ -134,9 +134,9 @@ class ArgEasy(object):
             'max_append': max_append
         }
 
-        name = name.replace('-', '')
-        name = name.replace('--', '')
-            
+        name = name.strip('-')         
+        name = name.replace('-', '_')
+
         setattr(self.namespace, name, None)
 
     def _print_help(self) -> None:
@@ -219,8 +219,8 @@ class ArgEasy(object):
                         next_arg = flag_index + 1
                         value = args[next_arg]
 
-            flag = flag.replace('-', '')
-            flag = flag.replace('--', '')
+            flag = flag.strip('-')
+            flag = flag.replace('-', '_')
 
             setattr(self.namespace, flag, value)
 
