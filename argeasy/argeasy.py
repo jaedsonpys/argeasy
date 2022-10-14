@@ -134,7 +134,7 @@ class ArgEasy(object):
             'max_append': max_append
         }
 
-        name = name.strip('-')         
+        name = name.strip('-')
         name = name.replace('-', '_')
 
         setattr(self.namespace, name, None)
