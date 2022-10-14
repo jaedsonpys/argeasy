@@ -18,6 +18,6 @@ setup(
     project_urls={
         'License': 'https://github.com/jaedsonpys/argeasy/blob/master/LICENSE'
     },
-    keywords=['CLI', 'command', 'argument', 'parser'],
+    keywords=['cli', 'command', 'argument', 'parser', 'interface'],
     license='GPL v3.0'
 )
