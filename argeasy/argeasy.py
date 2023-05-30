@@ -71,15 +71,15 @@ class ArgEasy(object):
         if self._description:
             print(self._description)
 
-        print(f'Commands and flags help:\n')
+        print(f'\nCommands and flags help:')
 
         for cmd, info in self._commands.items():
-            print(f'    {cmd}: \033[33m{info["help"]}\033[m')
+            print(f'    \033[1m{cmd}\033[m: \033[33m{info["help"]}\033[m')
 
         print()
 
         for flag, info in self._flags.items():
-            print(f'    {flag}: \033[33m{info["help"]}\033[m')
+            print(f'    \033[1m{flag}\033[m: \033[33m{info["help"]}\033[m')
 
     def add_argument(
         self,
