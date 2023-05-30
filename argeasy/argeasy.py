@@ -158,3 +158,10 @@ class ArgEasy(object):
         name = name.replace('-', '_')
 
         setattr(self.namespace, name, None)
+
+    def parse(self) -> None:
+        main_cmd = self._args[0]
+        _args = self._args[1:]
+
+        parse_flags = filter(lambda x: x.startswith('-'), _args)
+        parse_args = filter(lambda x: not x.startswith('-'), _args)
