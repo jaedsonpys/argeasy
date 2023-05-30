@@ -3,6 +3,13 @@ from typing import Union
 
 from . import exceptions
 
+_ACTIONS = (
+    'store_true',
+    'store_false',
+    'append',
+    'default'
+)
+
 
 class Namespace(object):
     def __repr__(self):
@@ -42,14 +49,6 @@ class ArgEasy(object):
 
         self._commands = {}
         self._flags = {}
-
-        self._actions = [
-            'store_true',
-            'store_false',
-            'append',
-            'default'
-        ]
-
         self.namespace = Namespace()
 
         self.project_name = name
