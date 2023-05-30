@@ -160,6 +160,10 @@ class ArgEasy(object):
         setattr(self.namespace, name, None)
 
     def parse(self) -> None:
+        if not self._args:
+            self._help()
+            sys.exit(1)
+
         main_cmd = self._args[0]
         _args = self._args[1:]
 
