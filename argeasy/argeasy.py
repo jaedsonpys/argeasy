@@ -51,7 +51,7 @@ class ArgEasy(object):
         """
 
         self._flags = {}
-        self._commands = {}
+        self._arguments = {}
         self.namespace = Namespace()
 
         self._project_name = name
@@ -73,7 +73,7 @@ class ArgEasy(object):
 
         print(f'\nCommands and flags help:')
 
-        for cmd, info in self._commands.items():
+        for cmd, info in self._arguments.items():
             print(f'    \033[1m{cmd}\033[m: \033[33m{info["help"]}\033[m')
 
         print()
@@ -112,7 +112,7 @@ class ArgEasy(object):
         if action not in _ACTIONS:
             raise exceptions.InvalidActionError(f'Action {repr(action)} invalid')
 
-        self._commands[name] = {
+        self._arguments[name] = {
             'help': help,
             'action': action,
             'max_append': max_append
