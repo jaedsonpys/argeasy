@@ -47,15 +47,16 @@ class ArgEasy(object):
         :type version: str, optional
         """
 
-        self._commands = {}
         self._flags = {}
+        self._commands = {}
         self.namespace = Namespace()
 
         self.project_name = name
         self.description = description
         self.version = version
 
-        # add default flags
+        self._args = sys.argv[1:]
+
         self.add_flag('--help', 'View the help', action='store_true')
         self.add_flag('--version', 'View the version', action='store_true')
 
