@@ -70,8 +70,8 @@ class ArgEasy(object):
         """Adds a new argument.
 
         The available actions are:
-        default (returns the next argument as value),
-        store_true, store_false, and append.
+        `default` (returns the next argument as value),
+        `store_true`, `store_false`, and `append`.
 
         :param name: Argument name
         :type name: str
@@ -103,17 +103,12 @@ class ArgEasy(object):
         action: str = 'default',
         max_append: str = '*'
     ) -> None:
-        """Adds a new flag.
+        """Adds a new flag. The flag name can have
+        one or two hyphens.
 
         The available actions are:
-        default (returns the next argument as value),
-        store_true, store_false, and append.
-
-        The flag name can have only
-        one hyphen if the flag has
-        only one letter (-h), or two
-        hyphens if it is a word
-        (--help).
+        `default` (returns the next argument as value),
+        `store_true`, `store_false`, and `append`.
 
         :param name: Flag name
         :type name: str
