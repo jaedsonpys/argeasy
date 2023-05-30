@@ -106,7 +106,7 @@ class ArgEasy(object):
         :raises Exception: Action not recognized
         """
 
-        if action not in self._actions:
+        if action not in _ACTIONS:
             raise exceptions.InvalidActionError(f'Action {repr(action)} invalid')
 
         self._commands[name] = {
@@ -141,7 +141,7 @@ class ArgEasy(object):
         :type required: bool, optional
         """
 
-        if action not in self._actions:
+        if action not in _ACTIONS:
             raise exceptions.InvalidActionError(f'Action {repr(action)} invalid')
 
         self._flags[name] = {
