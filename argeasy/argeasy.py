@@ -81,6 +81,9 @@ class ArgEasy(object):
         for flag, info in self._flags.items():
             print(f'    \033[1m{flag}\033[m: \033[33m{info["help"]}\033[m')
 
+    def _show_version(self) -> None:
+        print(f'{self._project_name} (\033[33m{self._version}\033[m)')
+
     def add_argument(
         self,
         name: str,
