@@ -61,8 +61,8 @@ class ArgEasy(object):
 
         self._args = sys.argv[1:]
 
-        self.add_flag('--help', 'View the help', action='store_true')
-        self.add_flag('--version', 'View the version', action='store_true')
+        self.add_flag('--help', 'Show program help message', action='store_true')
+        self.add_flag('--version', 'Show program version', action='store_true')
 
     def _help(self) -> None:
         print(f'{self._project_name} ({self._version})')
