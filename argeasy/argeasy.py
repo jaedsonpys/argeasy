@@ -118,6 +118,7 @@ class ArgEasy(object):
             'max_append': max_append
         }
 
+        name = name.replace('-', '_')
         setattr(self.namespace, name, None)
 
     def add_flag(
