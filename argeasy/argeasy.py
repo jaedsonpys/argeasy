@@ -35,7 +35,8 @@ class ArgEasy(object):
         self,
         name: str = None,
         description: str = None,
-        version: str = None
+        version: str = None,
+        usage: str = None
     ) -> None:
         """Create a new instance of ArgEasy.
 
@@ -45,6 +46,8 @@ class ArgEasy(object):
         :type description: str, optional
         :param version: Application version, defaults to None
         :type version: str, optional
+        :param usage: Application usage format, defaults to none
+        :type usage: str, optional
         """
 
         self._flags = {}
@@ -54,6 +57,7 @@ class ArgEasy(object):
         self.project_name = name
         self.description = description
         self.version = version
+        self.usage = usage
 
         self._args = sys.argv[1:]
 
