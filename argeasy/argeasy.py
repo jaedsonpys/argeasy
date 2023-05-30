@@ -54,10 +54,10 @@ class ArgEasy(object):
         self._commands = {}
         self.namespace = Namespace()
 
-        self.project_name = name
-        self.description = description
-        self.version = version
-        self.usage = usage
+        self._project_name = name
+        self._description = description
+        self._version = version
+        self._usage = usage
 
         self._args = sys.argv[1:]
 
