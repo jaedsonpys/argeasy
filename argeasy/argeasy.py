@@ -64,6 +64,23 @@ class ArgEasy(object):
         self.add_flag('--help', 'View the help', action='store_true')
         self.add_flag('--version', 'View the version', action='store_true')
 
+    def _help(self) -> None:
+        print(f'{self._project_name} ({self._version})')
+        print(f'usage: {self._usage}\n')
+
+        if self._description:
+            print(self._description)
+
+        print(f'Commands and flags help:\n')
+
+        for cmd, info in self._commands.items():
+            print(f'    {cmd}: \033[33m{info["help"]}\033[m')
+
+        print()
+
+        for flag, info in self._flags.items():
+            print(f'    {flag}: \033[33m{info["help"]}\033[m')
+
     def add_argument(
         self,
         name: str,
