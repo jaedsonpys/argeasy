@@ -86,7 +86,7 @@ class ArgEasy(object):
         """
 
         if action not in self._actions:
-            raise Exception('Action not recognized')
+            raise exceptions.InvalidActionError(f'Action {repr(action)} invalid')
 
         self._commands[name] = {
             'help': help,
@@ -121,7 +121,7 @@ class ArgEasy(object):
         """
 
         if action not in self._actions:
-            raise Exception('Action not recognized')
+            raise exceptions.InvalidActionError(f'Action {repr(action)} invalid')
 
         self._flags[name] = {
             'help': help,
