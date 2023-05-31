@@ -189,3 +189,5 @@ class ArgEasy(object):
                 print(f'\033[31minvalid use from {repr(cmd_action)} command\033[m')
                 print(f'\033[33muse "--help" flag to see all commands\033[m')
                 sys.exit(1)
+
+        setattr(self.namespace, main_cmd, param)
