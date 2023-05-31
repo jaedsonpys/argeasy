@@ -183,4 +183,9 @@ class ArgEasy(object):
         elif cmd_action == 'store_false':
             param = False
         elif cmd_action == 'default':
-            param = _args[0]
+            try:
+                param = _args[0]
+            except IndexError:
+                print(f'\033[31minvalid use from {repr(cmd_action)} command\033[m')
+                print(f'\033[33muse "--help" flag to see all commands\033[m')
+                sys.exit(1)
