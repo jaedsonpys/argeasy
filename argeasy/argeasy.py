@@ -167,5 +167,10 @@ class ArgEasy(object):
         main_cmd = self._args[0]
         _args = self._args[1:]
 
+        if main_cmd not in self._arguments:
+            print(f'\033[31mcommand {repr(main_cmd)} unknown\033[m')
+            print(f'\033[33muse "--help" flag to see all commands\033[m')
+            sys.exit(1)
+
         parse_flags = filter(lambda x: x.startswith('-'), _args)
         parse_args = filter(lambda x: not x.startswith('-'), _args)
