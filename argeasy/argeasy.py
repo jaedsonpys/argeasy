@@ -174,3 +174,13 @@ class ArgEasy(object):
 
         parse_flags = filter(lambda x: x.startswith('-'), _args)
         parse_args = filter(lambda x: not x.startswith('-'), _args)
+
+        main_cmd_options = self._arguments.get(main_cmd)
+        cmd_action = main_cmd_options['action']
+
+        if cmd_action == 'store_true':
+            param = True
+        elif cmd_action == 'store_false':
+            param = False
+        elif cmd_action == 'default':
+            param = _args[0]
