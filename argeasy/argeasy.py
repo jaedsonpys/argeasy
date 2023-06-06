@@ -159,6 +159,34 @@ class ArgEasy(object):
 
         setattr(self.namespace, name, None)
 
+    def _parse_cmd(self, cmd: str, params: list) -> list:
+        _full_args = {}
+        _full_args.update(self._arguments)
+        _full_args.update(self._flags)
+
+        cmd_action = _full_args[cmd]['action']
+
+        if cmd_action == 'store_true':
+            param = True
+        elif cmd_action == 'store_false':
+            param = False
+        elif cmd_action == 'default':
+            try:
+                param = params[0]
+            except IndexError:
+                print(f'\033[31minvalid use from {repr(cmd)} command\033[m')
+                print(f'\033[33muse "--help" flag to see all commands\033[m')
+                sys.exit(1)
+
+            if param.startswith('-') or len(params) > 1:
+                print(f'\033[31minvalid use from {repr(cmd)} command\033[m')
+                print(f'\033[33muse "--help" flag to see all commands\033[m')
+                sys.exit(1)
+
+        cmd = cmd.strip('-')
+        cmd = cmd.replace('-', '_')
+        setattr(self.namespace, cmd, param)
+
     def parse(self) -> None:
         if not self._args:
             self._help()
@@ -186,5 +214,8 @@ class ArgEasy(object):
             cmd_params = _args[cmd_index + 1:next_cmd_i]
             cmd_name = _args[cmd_index]
             commands[cmd_name] = cmd_params
+
+        for cmd, params in commands.items():
+            self._parse_cmd(cmd, params)
 
         return self.namespace
