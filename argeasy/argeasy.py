@@ -164,30 +164,27 @@ class ArgEasy(object):
             self._help()
             sys.exit(1)
 
-        main_cmd = self._args[0]
-        _args = self._args[1:]
+        _full_args = {}
+        _full_args.update(self._arguments)
+        _full_args.update(self._flags)
 
-        if main_cmd not in self._arguments:
-            print(f'\033[31mcommand {repr(main_cmd)} unknown\033[m')
-            print(f'\033[33muse "--help" flag to see all commands\033[m')
-            sys.exit(1)
+        _args = self._args
+        recognized_cmd = []
+        commands = {}
 
-        parse_flags = filter(lambda x: x.startswith('-'), _args)
-        parse_args = filter(lambda x: not x.startswith('-'), _args)
+        for index, cmd in enumerate(_args):
+            if cmd in _full_args:
+                recognized_cmd.append(index)
 
-        main_cmd_options = self._arguments.get(main_cmd)
-        cmd_action = main_cmd_options['action']
+        recognized_cmd.append(len(_args))
 
-        if cmd_action == 'store_true':
-            param = True
-        elif cmd_action == 'store_false':
-            param = False
-        elif cmd_action == 'default':
-            try:
-                param = _args[0]
-            except IndexError:
-                print(f'\033[31minvalid use from {repr(cmd_action)} command\033[m')
-                print(f'\033[33muse "--help" flag to see all commands\033[m')
-                sys.exit(1)
+        for i, cmd_index in enumerate(recognized_cmd):
+            if (i + 1) > (len(recognized_cmd) - 1):
+                break
 
-        setattr(self.namespace, main_cmd, param)
+            next_cmd_i = recognized_cmd[i + 1]
+            cmd_params = _args[cmd_index + 1:next_cmd_i]
+            cmd_name = _args[cmd_index]
+            commands[cmd_name] = cmd_params
+
+        return self.namespace
