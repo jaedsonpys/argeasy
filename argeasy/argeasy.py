@@ -50,8 +50,7 @@ class ArgEasy(object):
         :type usage: str, optional
         """
 
-        self._flags = {}
-        self._arguments = {}
+        self._commands = {}
         self.namespace = Namespace()
 
         self._project_name = name
@@ -112,7 +111,7 @@ class ArgEasy(object):
         if action not in _ACTIONS:
             raise exceptions.InvalidActionError(f'Action {repr(action)} invalid')
 
-        self._arguments[name] = {
+        self._commands[name] = {
             'help': help,
             'action': action,
             'max_append': max_append
@@ -148,7 +147,7 @@ class ArgEasy(object):
         if action not in _ACTIONS:
             raise exceptions.InvalidActionError(f'Action {repr(action)} invalid')
 
-        self._flags[name] = {
+        self._commands[name] = {
             'help': help,
             'action': action,
             'max_append': max_append
@@ -160,11 +159,7 @@ class ArgEasy(object):
         setattr(self.namespace, name, None)
 
     def _parse_cmd(self, cmd: str, params: list) -> list:
-        _full_args = {}
-        _full_args.update(self._arguments)
-        _full_args.update(self._flags)
-
-        cmd_action = _full_args[cmd]['action']
+        cmd_action = self._commands[cmd]['action']
 
         if cmd_action == 'store_true':
             param = True
@@ -192,27 +187,22 @@ class ArgEasy(object):
             self._help()
             sys.exit(1)
 
-        _full_args = {}
-        _full_args.update(self._arguments)
-        _full_args.update(self._flags)
-
-        _args = self._args
         recognized_cmd = []
         commands = {}
 
-        for index, cmd in enumerate(_args):
-            if cmd in _full_args:
+        for index, cmd in enumerate(self._args):
+            if cmd in self._commands:
                 recognized_cmd.append(index)
 
-        recognized_cmd.append(len(_args))
+        recognized_cmd.append(len(self._args))
 
         for i, cmd_index in enumerate(recognized_cmd):
             if (i + 1) > (len(recognized_cmd) - 1):
                 break
 
             next_cmd_i = recognized_cmd[i + 1]
-            cmd_params = _args[cmd_index + 1:next_cmd_i]
-            cmd_name = _args[cmd_index]
+            cmd_params = self._args[cmd_index + 1:next_cmd_i]
+            cmd_name = self._args[cmd_index]
             commands[cmd_name] = cmd_params
 
         for cmd, params in commands.items():
