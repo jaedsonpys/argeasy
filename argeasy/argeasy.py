@@ -30,13 +30,8 @@ class Namespace(object):
 
 
 class ArgEasy(object):
-    def __init__(
-        self,
-        name: str = None,
-        description: str = None,
-        version: str = None,
-        usage: str = None
-    ) -> None:
+    def __init__(self, name: str = None, description: str = None,
+                 version: str = None, usage: str = None) -> None:
         """Create a new instance of ArgEasy.
 
         :param name: Application name, defaults to None
@@ -77,13 +72,8 @@ class ArgEasy(object):
     def _show_version(self) -> None:
         print(f'{self._project_name} (\033[33m{self._version}\033[m)')
 
-    def add_argument(
-        self,
-        name: str,
-        help: str,
-        action: str = 'default',
-        max_append: str = '*'
-    ) -> None:
+    def add_argument(self, name: str, help: str, action: str = 'default',
+                     max_append: str = '*') -> None:
         """Adds a new argument.
 
         The available actions are:
@@ -114,13 +104,8 @@ class ArgEasy(object):
         name = name.replace('-', '_')
         setattr(self.namespace, name, None)
 
-    def add_flag(
-        self,
-        name: str,
-        help: str,
-        action: str = 'default',
-        max_append: str = '*'
-    ) -> None:
+    def add_flag(self, name: str, help: str, action: str = 'default',
+                 max_append: str = '*') -> None:
         """Adds a new flag. The flag name can have
         one or two hyphens.
 
