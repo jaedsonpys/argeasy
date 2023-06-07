@@ -33,6 +33,10 @@ class ArgEasy(object):
         self._project_name = name
         self._description = description
         self._version = version
+
+        if not usage:
+            usage = f'{name} [--version] [--help] <command> <args>'
+
         self._usage = usage
 
         self.add_flag('--help', 'Show program help message', action='store_true')
@@ -152,7 +156,7 @@ class ArgEasy(object):
                     print(f'\033[31mcommand {repr(cmd)} supports up to {max_append} elements\033[m')
                     print('\033[33muse \'--help\' flag to see all commands\033[m')
                     sys.exit(1)
-                
+
                 param = params[0:max_append - 1]
 
         cmd = cmd.strip('-')
