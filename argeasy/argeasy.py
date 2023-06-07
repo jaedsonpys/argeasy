@@ -193,6 +193,10 @@ class ArgEasy(object):
         for index, cmd in enumerate(self._args):
             if cmd in self._commands:
                 recognized_cmd.append(index)
+            elif cmd not in self._commands and cmd.startswith('-'):
+                print(f'\033[31mflag {repr(cmd)} unrecognized\033[m')
+                print(f'\033[33muse "--help" flag to see all commands\033[m')
+                sys.exit(1)
 
         recognized_cmd.append(len(self._args))
 
