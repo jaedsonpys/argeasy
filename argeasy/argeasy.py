@@ -1,6 +1,7 @@
 import sys
 
 from . import exceptions
+from .arguments import Arguments
 
 _ACTIONS = (
     'store_true',
@@ -8,25 +9,6 @@ _ACTIONS = (
     'append',
     'default'
 )
-
-
-class Namespace(object):
-    def __repr__(self):
-        attr = [i for i in self.__dir__() if not i.startswith('__')]
-        repr = 'Namespace('
-
-        for c, a in enumerate(attr):
-            value = self.__getattribute__(a)
-
-            if isinstance(value, str):
-                value = f'"{value}"'
-
-            if c == len(attr) - 1:
-                repr += f'{a}={value})'
-            else:
-                repr += f'{a}={value}, '
-
-        return repr
 
 
 class ArgEasy(object):
@@ -45,7 +27,7 @@ class ArgEasy(object):
         """
 
         self._commands = {}
-        self.namespace = Namespace()
+        self._parsed = Arguments()
 
         self._project_name = name
         self._description = description
@@ -102,7 +84,7 @@ class ArgEasy(object):
         }
 
         name = name.replace('-', '_')
-        setattr(self.namespace, name, None)
+        setattr(self._parsed, name, None)
 
     def add_flag(self, name: str, help: str, action: str = 'default',
                  max_append: str = '*') -> None:
@@ -135,7 +117,7 @@ class ArgEasy(object):
         name = name.strip('-')
         name = name.replace('-', '_')
 
-        setattr(self.namespace, name, None)
+        setattr(self._parsed, name, None)
 
     def _parse_cmd(self, cmd: str, params: list) -> list:
         cmd_action = self._commands[cmd]['action']
@@ -164,7 +146,7 @@ class ArgEasy(object):
 
         cmd = cmd.strip('-')
         cmd = cmd.replace('-', '_')
-        setattr(self.namespace, cmd, param)
+        setattr(self._parsed, cmd, param)
 
     def parse(self) -> None:
         if not self._args:
@@ -196,4 +178,4 @@ class ArgEasy(object):
         for cmd, params in commands.items():
             self._parse_cmd(cmd, params)
 
-        return self.namespace
+        return self._parsed
