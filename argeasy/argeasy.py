@@ -65,14 +65,15 @@ class ArgEasy(object):
 
         :param name: Argument name
         :type name: str
-        :param help: Usage help for the argument
+        :param help: Argument help message
         :type help: str
-        :param action: Argument action, defaults to 'default'
+        :param action: Action to be taken if argument is
+        available, defaults to 'default'
         :type action: str, optional
         :param max_append: If the action is "append", this
-        parameter sets the maximum number of items, defaults to '*'
-        :type max_append: str, optional
-        :raises Exception: Action not recognized
+        parameter defines the maximum number of elements, defaults to '*'
+        :type max_append: Union[str, int], optional
+        :raises exceptions.InvalidActionError: Raised if inexistent action
         """
 
         if action not in _ACTIONS:
@@ -98,12 +99,15 @@ class ArgEasy(object):
 
         :param name: Flag name
         :type name: str
-        :param help: Help text
+        :param help: Flag help message
         :type help: str
-        :param action: Flag action, defaults to 'default'
+        :param action: Action to be taken if flag is
+        available, defaults to 'default'
         :type action: str, optional
-        :param required: If flag is required, defaults to False
-        :type required: bool, optional
+        :param max_append: If the action is "append", this
+        parameter defines the maximum number of elements, defaults to '*'
+        :type max_append: Union[str, int], optional
+        :raises exceptions.InvalidActionError: Raised if inexistent action
         """
 
         if action not in _ACTIONS:
