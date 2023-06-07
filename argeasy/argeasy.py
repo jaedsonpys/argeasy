@@ -1,4 +1,5 @@
 import sys
+from typing import Union
 
 from . import exceptions
 from .arguments import Arguments
@@ -55,7 +56,7 @@ class ArgEasy(object):
         print(f'{self._project_name} (\033[33m{self._version}\033[m)')
 
     def add_argument(self, name: str, help: str, action: str = 'default',
-                     max_append: str = '*') -> None:
+                     max_append: Union[str, int] = '*') -> None:
         """Adds a new argument.
 
         The available actions are:
@@ -87,7 +88,7 @@ class ArgEasy(object):
         setattr(self._parsed, name, None)
 
     def add_flag(self, name: str, help: str, action: str = 'default',
-                 max_append: str = '*') -> None:
+                 max_append: Union[str, int] = '*') -> None:
         """Adds a new flag. The flag name can have
         one or two hyphens.
 
