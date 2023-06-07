@@ -147,6 +147,13 @@ class ArgEasy(object):
 
             if max_append == '*':
                 param = params
+            else:
+                if len(params) > max_append:
+                    print(f'\033[31mcommand {repr(cmd)} supports up to {max_append} elements\033[m')
+                    print('\033[33muse \'--help\' flag to see all commands\033[m')
+                    sys.exit(1)
+                
+                param = params[0:max_append - 1]
 
         cmd = cmd.strip('-')
         cmd = cmd.replace('-', '_')
