@@ -55,6 +55,11 @@ class ArgEasy(object):
     def _show_version(self) -> None:
         print(f'{self._project_name} (\033[33m{self._version}\033[m)')
 
+    def _invalid_use_msg(self, cmd: str) -> None:
+        print(f'\033[31minvalid use from {repr(cmd)} command\033[m')
+        print(f'\033[33muse \'--help\' flag to see all commands\033[m')
+        sys.exit(1)
+
     def add_argument(self, name: str, help: str, action: str = 'default',
                      max_append: Union[str, int] = '*') -> None:
         """Adds a new argument.
@@ -135,14 +140,10 @@ class ArgEasy(object):
             try:
                 param = params[0]
             except IndexError:
-                print(f'\033[31minvalid use from {repr(cmd)} command\033[m')
-                print(f'\033[33muse "--help" flag to see all commands\033[m')
-                sys.exit(1)
+                self._invalid_use_msg(cmd)
 
             if param.startswith('-') or len(params) > 1:
-                print(f'\033[31minvalid use from {repr(cmd)} command\033[m')
-                print(f'\033[33muse "--help" flag to see all commands\033[m')
-                sys.exit(1)
+                self._invalid_use_msg(cmd)
         elif cmd_action == 'append':
             max_append = self._commands[cmd]['max_append']
 
