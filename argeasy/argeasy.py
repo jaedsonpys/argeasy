@@ -54,8 +54,11 @@ class ArgEasy(object):
         for cmd, info in self._commands.items():
             print(f'    \033[1m{cmd}\033[m: \033[33m{info["help"]}\033[m')
 
+        sys.exit(0)
+
     def _show_version(self) -> None:
         print(f'{self._project_name} (\033[33m{self._version}\033[m)')
+        sys.exit(0)
 
     def _invalid_use_msg(self, cmd: str) -> None:
         print(f'\033[31minvalid use from {repr(cmd)} command\033[m')
