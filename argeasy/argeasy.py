@@ -195,4 +195,9 @@ class ArgEasy(object):
         for cmd, params in commands.items():
             self._parse_cmd(cmd, params)
 
+        if self._parsed.help:
+            self._help()
+        elif self._parsed.version:
+            self._show_version()
+
         return self._parsed
