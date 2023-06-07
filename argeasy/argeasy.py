@@ -171,6 +171,11 @@ class ArgEasy(object):
                 print(f'\033[31minvalid use from {repr(cmd)} command\033[m')
                 print(f'\033[33muse "--help" flag to see all commands\033[m')
                 sys.exit(1)
+        elif cmd_action == 'append':
+            max_append = self._commands[cmd]['max_append']
+
+            if max_append == '*':
+                param = params
 
         cmd = cmd.strip('-')
         cmd = cmd.replace('-', '_')
