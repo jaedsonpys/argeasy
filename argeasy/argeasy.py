@@ -35,8 +35,6 @@ class ArgEasy(object):
         self._version = version
         self._usage = usage
 
-        self._args = sys.argv[1:]
-
         self.add_flag('--help', 'Show program help message', action='store_true')
         self.add_flag('--version', 'Show program version', action='store_true')
 
@@ -155,14 +153,16 @@ class ArgEasy(object):
         setattr(self._parsed, cmd, param)
 
     def parse(self) -> None:
-        if not self._args:
+        cli_args = sys.argv[1:]
+
+        if not cli_args:
             self._help()
             sys.exit(1)
 
         recognized_cmd = []
         commands = {}
 
-        for index, cmd in enumerate(self._args):
+        for index, cmd in enumerate(cli_args):
             if cmd in self._commands:
                 recognized_cmd.append(index)
             elif cmd not in self._commands and cmd.startswith('-'):
@@ -170,15 +170,15 @@ class ArgEasy(object):
                 print(f'\033[33muse "--help" flag to see all commands\033[m')
                 sys.exit(1)
 
-        recognized_cmd.append(len(self._args))
+        recognized_cmd.append(len(cli_args))
 
         for i, cmd_index in enumerate(recognized_cmd):
             if (i + 1) > (len(recognized_cmd) - 1):
                 break
 
             next_cmd_i = recognized_cmd[i + 1]
-            cmd_params = self._args[cmd_index + 1:next_cmd_i]
-            cmd_name = self._args[cmd_index]
+            cmd_params = cli_args[cmd_index + 1:next_cmd_i]
+            cmd_name = cli_args[cmd_index]
             commands[cmd_name] = cmd_params
 
         for cmd, params in commands.items():
