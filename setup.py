@@ -19,5 +19,5 @@ setup(
         'License': 'https://github.com/jaedsonpys/argeasy/blob/master/LICENSE'
     },
     keywords=['cli', 'command', 'argument', 'parser', 'interface'],
-    license='GPL v3.0'
+    license='MIT'
 )
