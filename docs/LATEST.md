@@ -1,6 +1,6 @@
-# ArgEasy (June 08 2023)
+# ArgEasy (June 08, 2023)
 
-Latest version (3.1.0) documentation of ArgEasy project.
+ArgEasy latest version (3.1.0) documentation.
 
 ## Getting started
 
@@ -64,4 +64,4 @@ if args.display:
         print(message)
 ```
 
-Note that we use the dot notation to get the formatted arguments that are in `args`. In `args.display`, we are getting the parameter that was passed to this command, which in this case will be the message to be displayed. The same is repeated for the `repeat` flag.
+Note that we use the **dot notation** to get the formatted arguments that are in `args`. In `args.display`, we are getting the parameter that was passed to this command, which in this case will be the message to be displayed. The same is repeated for the `repeat` flag.
