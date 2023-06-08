@@ -38,3 +38,30 @@ The `add_argument` and `add_flag` methods have the same parameters, they obligat
     - store_true: Stores a boolean value if the command is present. Used when you don't want to receive data, but just want to know if it is present or not. Example: `argeasy --help`.
     - append: Stores a list of parameters. Used when we want to get a lot of data with just one command. Example: `install argeasy cookiedb box-vcs`. In this example, "install" is the command that takes 3 parameters that will be returned as a list (`['argeasy', 'cookiedb', 'box-vcs']`) when formatted.
 - `max_append`: Sets the maximum number of parameters that can be added to a command (default is "*", ie any number). This parameter is only useful **when you use the "append"** action.
+
+### Building a simple CLI with ArgEasy
+
+Let's build a simple CLI program that displays the messages requested by the user, where he can also define the repetitions of this message:
+
+```python
+from argeasy import ArgEasy
+
+parser = ArgEasy('MyProgram', 'This program displays a message')
+
+parser.add_argument('display', 'Displays a message')
+parser.add_flag('--repeat', 'Number of repetitions')
+
+args = parser.parse()
+
+if args.display:
+    message = args.display
+    repeat = args.repeat
+
+    if repeat:
+        for __ in range(int(repeat)):
+            print(message)
+    else:
+        print(message)
+```
+
+Note that we use the dot notation to get the formatted arguments that are in `args`. In `args.display`, we are getting the parameter that was passed to this command, which in this case will be the message to be displayed. The same is repeated for the `repeat` flag.
