@@ -4,6 +4,7 @@ ArgEasy is a *command line* formatter made so that you can create CLI (command-l
 
 - [PyPI project](https://pypi.org/project/argeasy)
 - [GitHub releases](https://github.com/jaedsonpys/argeasy/releases)
+- [Learn how to use ArgEasy (documentation)](https://github.com/jaedsonpys/argeasy/blob/master/docs/LATEST.md)
 
 ## Starting with ArgEasy
 
