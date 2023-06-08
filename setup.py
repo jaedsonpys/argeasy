@@ -18,6 +18,13 @@ setup(
     project_urls={
         'License': 'https://github.com/jaedsonpys/argeasy/blob/master/LICENSE'
     },
-    keywords=['cli', 'command', 'argument', 'parser', 'interface'],
-    license='MIT'
+    keywords=['cli', 'command', 'argument', 'parser', 'command-line', 'interface'],
+    license='MIT',
+    classifiers=[
+        'Development Status :: 5 - Production/Stable',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python :: 3'
+    ]
 )
