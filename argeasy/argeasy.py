@@ -14,14 +14,14 @@ _ACTIONS = (
 
 class ArgEasy(object):
     def __init__(self, name: str = None, description: str = None,
-                 version: str = None, usage: str = None) -> None:
+                 version: str = '1.0.0', usage: str = None) -> None:
         """Create a new instance of ArgEasy.
 
         :param name: Application name, defaults to None
         :type name: str, optional
         :param description: Application description, defaults to None
         :type description: str, optional
-        :param version: Application version, defaults to None
+        :param version: Application version, defaults to "1.0.0"
         :type version: str, optional
         :param usage: Application usage format, defaults to none
         :type usage: str, optional
